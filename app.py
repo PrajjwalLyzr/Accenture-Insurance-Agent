@@ -59,7 +59,7 @@ with tab1:
     if len(st.session_state.customer_chat) > 0 and st.session_state.customer_chat[-1]["role"] == "user":
         # with st.spinner("Thinking..."):
         with st.chat_message("assistant"):
-            customer_response, response_time = send_message(CUSTOMER_AGENT_ID, "prajjwal@lyzr.ai", "prajjwal@lyzr", st.session_state.customer_chat[-1]["text"])
+            customer_response, response_time = send_message(CUSTOMER_AGENT_ID, "prajjwal@lyzr.ai", "sessionone", st.session_state.customer_chat[-1]["text"])
             st.session_state.customer_chat.append({"role": "assistant", "text": customer_response})
         st.rerun()
 
@@ -81,6 +81,6 @@ with tab2:
     if len(st.session_state.agent_chat) > 0 and st.session_state.agent_chat[-1]["role"] == "user":
         # with st.spinner("Thinking..."):
         with st.chat_message("assistant"):
-            agent_response, response_time = send_message(AGENT_AGENT_ID, "prajjwal@lyzr.ai", "prajjwal@lyzr", st.session_state.agent_chat[-1]["text"])
+            agent_response, response_time = send_message(AGENT_AGENT_ID, "prajjwal@lyzr.ai", "sessionone", st.session_state.agent_chat[-1]["text"])
             st.session_state.agent_chat.append({"role": "assistant", "text": agent_response})
         st.rerun()
