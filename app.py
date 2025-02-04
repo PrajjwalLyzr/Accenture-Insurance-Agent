@@ -38,6 +38,16 @@ def send_message(agent_id, user_id, session_id, message):
 # Streamlit App Layout
 st.title("SBI Support Agent")
 
+def clear_chat():
+    st.session_state.customer_chat = [
+        {"role": "assistant", "text": "Hello! How can I assist you with your SBI Life Insurance today? If you have any questions about your policy or need general insurance information, feel free to ask."}
+    ]
+    st.session_state.agent_chat = [
+        {"role": "assistant", "text": "Hello! How can I assist you today? Whether you have questions about commissions, policy recommendations, or sales strategies, I'm here to help. If your query is related to personal details like commission earned or sales progress, please include your Agent ID and Name for verification. Otherwise, feel free to ask any general questions about our products or services."}
+    ]
+
+st.sidebar.button("🗑️ Clear Chat", on_click=clear_chat)
+
 # Tabs for different chat interfaces
 tab1, tab2 = st.tabs(["Customer Support", "SBI Insurance Agent"])
 
@@ -45,7 +55,9 @@ tab1, tab2 = st.tabs(["Customer Support", "SBI Insurance Agent"])
 with tab1:
     st.subheader("Chat with Customer Support Bot")
     if "customer_chat" not in st.session_state:
-        st.session_state.customer_chat = []
+        st.session_state.customer_chat = [
+            {"role": "assistant", "text": "Hello! How can I assist you with your SBI Life Insurance today? If you have any questions about your policy or need general insurance information, feel free to ask."}
+        ]
     
     for msg in st.session_state.customer_chat:
         with st.chat_message(msg["role"]):
@@ -67,7 +79,9 @@ with tab1:
 with tab2:
     st.subheader("Chat with SBI Insurance AI Agent")
     if "agent_chat" not in st.session_state:
-        st.session_state.agent_chat = []
+        st.session_state.agent_chat = [
+            {"role": "assistant", "text": "Hello! How can I assist you today? Whether you have questions about commissions, policy recommendations, or sales strategies, I'm here to help. If your query is related to personal details like commission earned or sales progress, please include your Agent ID and Name for verification. Otherwise, feel free to ask any general questions about our products or services."}
+        ]
     
     for msg in st.session_state.agent_chat:
         with st.chat_message(msg["role"]):
