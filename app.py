@@ -36,10 +36,10 @@ def send_message(agent_id, user_id, session_id, message):
         return f"Error: {response.status_code} - {response.text}", None
 
 # Streamlit App Layout
-st.title("SBI Chat Interface")
+st.title("SBI Support Agent")
 
 # Tabs for different chat interfaces
-tab1, tab2 = st.tabs(["Customer Support", "SBI Life Insurance Agent"])
+tab1, tab2 = st.tabs(["Customer Support", "SBI Insurance Agent"])
 
 # Customer Support Chat Interface
 with tab1:
@@ -57,15 +57,15 @@ with tab1:
         st.rerun()
         
     if len(st.session_state.customer_chat) > 0 and st.session_state.customer_chat[-1]["role"] == "user":
+        # with st.spinner("Thinking..."):
         with st.chat_message("assistant"):
-            # with st.spinner("Thinking..."):
-                customer_response, response_time = send_message(CUSTOMER_AGENT_ID, "prajjwal@lyzr.ai", "prajjwal@lyzr.ai", st.session_state.customer_chat[-1]["text"])
-        st.session_state.customer_chat.append({"role": "assistant", "text": customer_response})
+            customer_response, response_time = send_message(CUSTOMER_AGENT_ID, "prajjwal@lyzr.ai", "prajjwal@lyzr", st.session_state.customer_chat[-1]["text"])
+            st.session_state.customer_chat.append({"role": "assistant", "text": customer_response})
         st.rerun()
 
 # SBI Life Insurance Agent Chat Interface
 with tab2:
-    st.subheader("Chat with SBI Life Insurance Agent Bot")
+    st.subheader("Chat with SBI Insurance AI Agent")
     if "agent_chat" not in st.session_state:
         st.session_state.agent_chat = []
     
@@ -73,14 +73,14 @@ with tab2:
         with st.chat_message(msg["role"]):
             st.markdown(msg["text"])
     
-    agent_input = st.chat_input("Enter your message for SBI Life Insurance Agent")
+    agent_input = st.chat_input("Enter your message for SBI Insurance AI Agent")
     if agent_input:
         st.session_state.agent_chat.append({"role": "user", "text": agent_input})
         st.rerun()
         
     if len(st.session_state.agent_chat) > 0 and st.session_state.agent_chat[-1]["role"] == "user":
+        # with st.spinner("Thinking..."):
         with st.chat_message("assistant"):
-            # with st.spinner("Thinking..."):
-                agent_response, response_time = send_message(AGENT_AGENT_ID, "prajjwal@lyzr.ai", "prajjwal@lyzr.ai", st.session_state.agent_chat[-1]["text"])
-        st.session_state.agent_chat.append({"role": "assistant", "text": agent_response})
+            agent_response, response_time = send_message(AGENT_AGENT_ID, "prajjwal@lyzr.ai", "prajjwal@lyzr", st.session_state.agent_chat[-1]["text"])
+            st.session_state.agent_chat.append({"role": "assistant", "text": agent_response})
         st.rerun()
