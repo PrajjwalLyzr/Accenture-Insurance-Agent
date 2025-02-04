@@ -180,7 +180,7 @@ with tab1:
             st.session_state.customer_first_message = customer_input
 
         # Append the stored first message to all user queries
-        full_message = f"{st.session_state.customer_first_message}\n{customer_input}"
+        full_message = f"{st.session_state.customer_first_message},{customer_input}"
 
         print(full_message)
         
@@ -227,7 +227,7 @@ with tab2:
             st.session_state.agent_first_message = agent_input
 
         # Append the stored first message to all user queries
-        full_message = f"{st.session_state.agent_first_message}\n{agent_input}"
+        full_message = f"{st.session_state.agent_first_message}, {agent_input}"
 
         print(full_message)
         
